@@ -8,6 +8,7 @@ License:	GPL
 Vendor:		Olgierd Pieczul <wojrus@pld.org.pl>
 Group:		Networking/Admin
 Source0:	ftp://ftp.pld.org.pl/people/wojrus/tree-firewall/%{name}-%{version}.tar.gz
+# Source0-md5:	101385c143c0b45ec8c35bc4eae0bbea
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	grep
