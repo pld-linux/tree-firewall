@@ -1,7 +1,7 @@
 Summary:	Firewall building tool
 Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
-Name:		tree-firewall
-Version:	0.2pre1
+iName:		tree-firewall
+Version:	0.2pre2
 Release:	1
 Group:		Networking/Admin
 License:	GPL
@@ -41,7 +41,7 @@ echo -ne "\nUSERSPACE_TOOL=" >> /etc/sysconfig/firewall
 if [ -f /usr/sbin/iptables ]; then
 	echo "iptables"
 	echo "iptables" >> /etc/sysconfig/firewall
-elif [ -f /usr/sbin/ipchains ]; then
+elif [ -f /sbin/ipchains ]; then
 	echo "ipchains"
 	echo "iptables" >> /etc/sysconfig/firewall
 else
