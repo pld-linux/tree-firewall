@@ -66,5 +66,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/firewall
 %attr(755,root,root) %{_datadir}/%{name}
 %attr(750,root,root) /etc/rc.d/init.d/firewall
-%attr(750,root,root) %verify(not size mtime md5) %config(noreplace) /etc/sysconfig/firewall
+%attr(640,root,root) %verify(not size mtime md5) %config(noreplace) /etc/sysconfig/firewall
 %doc README ChangeLog
