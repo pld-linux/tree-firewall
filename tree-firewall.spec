@@ -1,7 +1,7 @@
 Summary:	Firewall building tool
 Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
 Name:		tree-firewall
-Version:	0.2pre2
+Version:	0.2pre3
 Release:	1
 Group:		Networking/Admin
 License:	GPL
@@ -28,12 +28,12 @@ startowy SysV.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{sysconfig,firewall,rc.d/init.d},%{_sbindir},%{_datadir}/%{name},/var/run/tree-firewall}
-
+install -d $RPM_BUILD_ROOT{/etc/{sysconfig,firewall,rc.d/init.d},%{_sbindir},%{_datadir}/%{name},/var/run/tree-firewall,%{_mandir}/man8}
 install firewall $RPM_BUILD_ROOT%{_sbindir}/
 install functions-* $RPM_BUILD_ROOT%{_datadir}/%{name}
 ln -s %{_sbindir}/firewall $RPM_BUILD_ROOT/etc/rc.d/init.d/firewall
 echo "# tree-firewall config file" > $RPM_BUILD_ROOT/etc/sysconfig/firewall
+install firewall.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 %post
 echo -n "Trying to identify which userspace tool do you use... "
@@ -68,3 +68,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(750,root,root) /etc/rc.d/init.d/firewall
 %attr(640,root,root) %verify(not size mtime md5) %config(noreplace) /etc/sysconfig/firewall
 %doc README ChangeLog
+%{_mandir}/man8/*
