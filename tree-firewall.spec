@@ -1,7 +1,7 @@
 Summary:	Firewall building tool
 Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
 Name:		tree-firewall
-Version:	0.2pre4
+Version:	0.2
 Release:	1
 License:	GPL
 Group:		Networking/Admin
@@ -30,7 +30,7 @@ startowy SysV.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{sysconfig,firewall,rc.d/init.d},%{_sbindir},%{_datadir}/%{name},/var/run/tree-firewall,%{_mandir}/man8}
+install -d $RPM_BUILD_ROOT{/etc/{sysconfig,firewall,rc.d/init.d},%{_sbindir},%{_datadir}/%{name},/tmp/tree-firewall,%{_mandir}/man8}
 
 install firewall $RPM_BUILD_ROOT/etc/rc.d/init.d/firewall
 install functions-* $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -42,17 +42,18 @@ echo ".so firewall.8" > $RPM_BUILD_ROOT%{_mandir}/man8/rc.firewall.8
 
 %post
 echo -n "Trying to identify which userspace tool do you use... "
-echo -ne "\nUSERSPACE_TOOL=" >> /etc/sysconfig/firewall
-if [ -f /usr/sbin/iptables ]; then
+echo -ne "\n#USERSPACE_TOOL=" >> /etc/sysconfig/firewall
+if [ -f /usr/sbin/iptables -o -f /sbin/iptables ]; then
 	echo "iptables"
 	echo "iptables" >> /etc/sysconfig/firewall
-elif [ -f /sbin/ipchains ]; then
+elif [ -f /sbin/ipchains -o -f /usr/sbin/ipchains ]; then
 	echo "ipchains"
-	echo "iptables" >> /etc/sysconfig/firewall
+	echo "ipchains" >> /etc/sysconfig/firewall
 else
 	echo "failed!"
 	echo "unknown" >> /etc/sysconfig/firewall
 fi
+echo "You should modify /etc/sysconfig/firewall"
 
 /sbin/chkconfig --add firewall
 
@@ -68,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,750)
 %doc README ChangeLog
 %dir %{_sysconfdir}/firewall
-%dir /var/run/tree-firewall
+%dir /tmp/tree-firewall
 %attr(755,root,root) %{_sbindir}/rc.firewall
 %attr(755,root,root) %{_datadir}/%{name}
 %attr(754,root,root) /etc/rc.d/init.d/firewall
