@@ -2,7 +2,7 @@ Summary:	Firewall building tool
 Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
 Name:		tree-firewall
 Version:	0.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Vendor:		Olgierd Pieczul <wojrus@pld.org.pl>
