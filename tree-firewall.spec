@@ -1,6 +1,6 @@
 Summary:	Firewall building tool
 Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
-iName:		tree-firewall
+Name:		tree-firewall
 Version:	0.2pre2
 Release:	1
 Group:		Networking/Admin
