@@ -6,14 +6,15 @@ Release:	1
 Epoch:		1
 License:	GPL
 Group:		Networking/Admin
-Vendor:		Olgierd Pieczul <wojrus@pld.org.pl>
-Source0:	ftp://ftp.pld.org.pl/people/wojrus/tree-firewall/%{name}-%{version}.tar.gz
+Vendor:		Olgierd Pieczul <wojrus@pld-linux.org>
+Source0:	ftp://ftp.pld-linux.org/people/wojrus/tree-firewall/%{name}-%{version}.tar.gz
+# Source0-md5:	101385c143c0b45ec8c35bc4eae0bbea
 Prereq:		/sbin/chkconfig
 #Requires:	firewall-userspace-tool
 Requires:	rc-scripts, tree
 BuildArch:	noarch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	firewall-init
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
 
