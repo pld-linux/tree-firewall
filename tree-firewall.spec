@@ -38,6 +38,7 @@ ln -s /etc/rc.d/init.d/firewall $RPM_BUILD_ROOT%{_sbindir}/rc.firewall
 
 echo "# tree-firewall config file" > $RPM_BUILD_ROOT/etc/sysconfig/firewall
 install firewall.8 $RPM_BUILD_ROOT%{_mandir}/man8
+echo ".so firewall.8" > $RPM_BUILD_ROOT%{_mandir}/man8/rc.firewall.8
 
 %post
 echo -n "Trying to identify which userspace tool do you use... "
