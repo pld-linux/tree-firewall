@@ -5,12 +5,14 @@ Version:	0.2
 Release:	1
 Epoch:		1
 License:	GPL
-Group:		Networking/Admin
 Vendor:		Olgierd Pieczul <wojrus@pld.org.pl>
+Group:		Networking/Admin
 Source0:	ftp://ftp.pld.org.pl/people/wojrus/tree-firewall/%{name}-%{version}.tar.gz
-Prereq:		/sbin/chkconfig
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
+Requires(post):	grep
 #Requires:	firewall-userspace-tool
-Requires:	rc-scripts, tree
+Requires:	tree
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	firewall-init
@@ -41,21 +43,24 @@ echo "# tree-firewall config file" > $RPM_BUILD_ROOT/etc/sysconfig/firewall
 install firewall.8 $RPM_BUILD_ROOT%{_mandir}/man8
 echo ".so firewall.8" > $RPM_BUILD_ROOT%{_mandir}/man8/rc.firewall.8
 
-%post
-echo -n "Trying to identify which userspace tool do you use... "
-echo -ne "\n#USERSPACE_TOOL=" >> /etc/sysconfig/firewall
-if [ -f /usr/sbin/iptables -o -f /sbin/iptables ]; then
-	echo "iptables"
-	echo "iptables" >> /etc/sysconfig/firewall
-elif [ -f /sbin/ipchains -o -f /usr/sbin/ipchains ]; then
-	echo "ipchains"
-	echo "ipchains" >> /etc/sysconfig/firewall
-else
-	echo "failed!"
-	echo "unknown" >> /etc/sysconfig/firewall
-fi
-echo "You should modify /etc/sysconfig/firewall"
+%clean
+rm -rf $RPM_BUILD_ROOT
 
+%post
+if ! grep -q '#\?USERSPACE_TOOL' /etc/sysconfig/firewall ; then
+	echo -n "Trying to identify which userspace tool do you use... "
+	if [ -f /usr/sbin/iptables -o -f /sbin/iptables ]; then
+		echo "iptables"
+		echo -e "\n#USERSPACE_TOOL=iptables" >> /etc/sysconfig/firewall
+	elif [ -f /sbin/ipchains -o -f /usr/sbin/ipchains ]; then
+		echo "ipchains"
+		echo -e "\n#USERSPACE_TOOL=ipchains" >> /etc/sysconfig/firewall
+	else
+		echo "failed!"
+		echo -e "\n#USERSPACE_TOOL=unknown" >> /etc/sysconfig/firewall
+	fi
+	echo "You should modify /etc/sysconfig/firewall"
+fi
 /sbin/chkconfig --add firewall
 
 %preun
@@ -63,13 +68,11 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del firewall
 fi
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,750)
 %doc README ChangeLog
 %dir %{_sysconfdir}/firewall
+# huh? will be removed by rc.sysinit
 %dir /tmp/tree-firewall
 %attr(755,root,root) %{_sbindir}/rc.firewall
 %attr(755,root,root) %{_datadir}/%{name}
