@@ -9,9 +9,9 @@ Vendor:		Olgierd Pieczul <wojrus@pld.org.pl>
 Source0:	http://team.pld.org.pl/~wojrus/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Prereq:     /sbin/chkconfig
+Prereq:		/sbin/chkconfig
 #Requires:	firewall-userspace-tool
-Requires:   rc-scripts, tree
+Requires:	rc-scripts, tree
 Conflicts:	firewall-init
 
 %description
@@ -29,10 +29,12 @@ startowy SysV.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{sysconfig,firewall,rc.d/init.d},%{_sbindir},%{_datadir}/%{name}}
+
 install firewall $RPM_BUILD_ROOT%{_sbindir}/
 install functions-* $RPM_BUILD_ROOT%{_datadir}/%{name}
 ln -s %{_sbindir}/firewall $RPM_BUILD_ROOT/etc/rc.d/init.d/firewall
 echo "#USERSPACE_TOOL=" > $RPM_BUILD_ROOT/etc/sysconfig/firewall
+
 gzip -9nf README ChangeLog
 
 %post
@@ -48,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README.gz ChangeLog.gz
+%doc *.gz
 %dir %{_sysconfdir}/firewall
 %attr(755,root,root) %{_sbindir}/firewall
 %attr(755,root,root) %{_datadir}/%{name}
