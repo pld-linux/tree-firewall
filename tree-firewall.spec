@@ -17,6 +17,7 @@ Requires:	tree
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	firewall-init
+Conflicts:	shorewall
 
 %define		_sbindir	/sbin
 
