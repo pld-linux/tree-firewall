@@ -14,6 +14,8 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	firewall-init
 
+%define		_sbindir	/sbin
+
 %description
 tree-firewall is a tool helping in building firewalls. It sets and
 remove rule-sets. It can be also used as a SysV-init statup script.
@@ -29,9 +31,11 @@ startowy SysV.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{sysconfig,firewall,rc.d/init.d},%{_sbindir},%{_datadir}/%{name},/var/run/tree-firewall,%{_mandir}/man8}
-install firewall $RPM_BUILD_ROOT%{_sbindir}/
+
+install firewall $RPM_BUILD_ROOT/etc/rc.d/init.d/firewall
 install functions-* $RPM_BUILD_ROOT%{_datadir}/%{name}
-ln -s %{_sbindir}/firewall $RPM_BUILD_ROOT/etc/rc.d/init.d/firewall
+ln -s /etc/rc.d/init.d/firewall $RPM_BUILD_ROOT%{_sbindir}/rc.firewall
+
 echo "# tree-firewall config file" > $RPM_BUILD_ROOT/etc/sysconfig/firewall
 install firewall.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
@@ -53,7 +57,7 @@ fi
 
 %preun
 if [ "$1" = "0" ]; then
-    /sbin/chkconfig --del firewall
+	/sbin/chkconfig --del firewall
 fi
 
 %clean
@@ -61,11 +65,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,750)
+%doc README ChangeLog
 %dir %{_sysconfdir}/firewall
 %dir /var/run/tree-firewall
-%attr(755,root,root) %{_sbindir}/firewall
+%attr(755,root,root) %{_sbindir}/rc.firewall
 %attr(755,root,root) %{_datadir}/%{name}
-%attr(750,root,root) /etc/rc.d/init.d/firewall
+%attr(754,root,root) /etc/rc.d/init.d/firewall
 %attr(640,root,root) %verify(not size mtime md5) %config(noreplace) /etc/sysconfig/firewall
-%doc README ChangeLog
 %{_mandir}/man8/*
