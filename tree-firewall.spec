@@ -3,15 +3,15 @@ Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
 Name:		tree-firewall
 Version:	0.2pre3
 Release:	1
-Group:		Networking/Admin
 License:	GPL
+Group:		Networking/Admin
 Vendor:		Olgierd Pieczul <wojrus@pld.org.pl>
 Source0:	ftp://ftp.pld.org.pl/people/wojrus/tree-firewall/%{name}-%{version}.tar.gz
-BuildArch:	noarch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Prereq:		/sbin/chkconfig
 #Requires:	firewall-userspace-tool
 Requires:	rc-scripts, tree
+BuildArch:	noarch
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	firewall-init
 
 %description
