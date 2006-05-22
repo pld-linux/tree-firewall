@@ -1,0 +1,18 @@
+diff -aurN tree-firewall-0.2.orig/functions-iptables tree-firewall-0.2/functions-iptables
+--- tree-firewall-0.2.orig/functions-iptables	2002-08-11 19:01:59.000000000 +0200
++++ tree-firewall-0.2/functions-iptables	2006-05-22 21:25:07.154859500 +0200
+@@ -133,11 +133,14 @@
+ 		iptables -t mangle -F
+ 		echo iptables -t nat -F
+ 		iptables -t nat -F
++		echo iptables -t raw -F
++		iptables -t raw -F
+ 	else
+ 		ret=0
+ 		iptables -t filter -F >/dev/null 2>/dev/null || ret=1
+ 		iptables -t mangle -F >/dev/null 2>/dev/null || ret=1
+ 		iptables -t nat -F >/dev/null 2>/dev/null || ret=1
++		iptables -t raw -F >/dev/null 2>/dev/null || ret=1
+ 		return $ret	
+ 	fi
+ }
