@@ -2,12 +2,13 @@ Summary:	Firewall building tool
 Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
 Name:		tree-firewall
 Version:	0.2
-Release:	3
+Release:	4
 Epoch:		1
 License:	GPL
 Group:		Networking/Admin
 Source0:	ftp://ftp.pld.org.pl/people/wojrus/tree-firewall/%{name}-%{version}.tar.gz
 # Source0-md5:	101385c143c0b45ec8c35bc4eae0bbea
+Patch0:		%{name}-raw.patch
 Requires(post):	grep
 Requires(post,preun):	/sbin/chkconfig
 #Requires:	firewall-userspace-tool
@@ -31,6 +32,7 @@ startowy SysV.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
