@@ -2,7 +2,7 @@ Summary:	Firewall building tool
 Summary(pl):	Narzêdzie wspomagaj±ce budowanie firewalli
 Name:		tree-firewall
 Version:	0.2
-Release:	4
+Release:	5
 Epoch:		1
 License:	GPL
 Group:		Networking/Admin
@@ -23,7 +23,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 tree-firewall is a tool helping in building firewalls. It sets and
-remove rule-sets. It can be also used as a SysV-init statup script.
+remove rule-sets. It can be also used as a SysV-init startup script.
 
 %description -l pl
 tree-firewall jest narzêdziem wspomagaj±cym budowanie firewalli.
