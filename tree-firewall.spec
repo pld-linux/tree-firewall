@@ -1,5 +1,5 @@
 Summary:	Firewall building tool
-Summary(pl.UTF-8):   Narzędzie wspomagające budowanie firewalli
+Summary(pl.UTF-8):	Narzędzie wspomagające budowanie firewalli
 Name:		tree-firewall
 Version:	0.2
 Release:	5
