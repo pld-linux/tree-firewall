@@ -72,8 +72,9 @@ if [ "$1" = "0" ]; then
 fi
 
 %files
-%defattr(644,root,root,750)
+%defattr(644,root,root,755)
 %doc README ChangeLog
+%defattr(644,root,root,750)
 %dir %{_sysconfdir}/firewall
 # huh? will be removed by rc.sysinit
 %dir /tmp/tree-firewall
